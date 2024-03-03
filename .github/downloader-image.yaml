@@ -1,0 +1,17 @@
+name: "Downloader image build"
+
+on:
+  push:
+    paths:
+      - "training-pipeline/**"
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build --file training-pipeline/Dockerfile . --tag downloader:$(date +%s)

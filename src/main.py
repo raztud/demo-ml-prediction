@@ -6,7 +6,13 @@ from contextlib import asynccontextmanager
 import joblib
 from fastapi import FastAPI, Request
 
-from src.schema import PingResponse, PredictionResponse, FeaturesData, FeedbackData, ReloadModelData
+from src.schema import (
+    PingResponse,
+    PredictionResponse,
+    FeaturesData,
+    FeedbackData,
+    ReloadModelData,
+)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -52,14 +58,13 @@ async def health() -> PingResponse:
 
 async def report_prediction(model_version, data, prediction):
     # report the prediction to the mlflow or other monitoring tool
-    logger.info(f"Predicted using model={model_version}, features={data}, prediction={prediction}")
+    logger.info(
+        f"Predicted using model={model_version}, features={data}, prediction={prediction}"
+    )
 
 
 @app.post("/predict")
-async def predict(
-        request: Request,
-        data: FeaturesData
-) -> PredictionResponse:
+async def predict(request: Request, data: FeaturesData) -> PredictionResponse:
     model = request.app.model
     input_feature = [[data.feature]]
     prediction = model.predict(input_feature).tolist()[0]

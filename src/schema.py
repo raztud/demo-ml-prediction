@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 class PingResponse(BaseModel):
-    status: Literal['ok'] = 'ok'
+    status: Literal["ok"] = "ok"
 
 
 class PredictionResponse(BaseModel):

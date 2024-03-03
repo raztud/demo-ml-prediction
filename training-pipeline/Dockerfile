@@ -5,7 +5,8 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy Python script into the container
-COPY downloader.py .
+COPY downloader.py requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Set the entry point to the Python script
 ENTRYPOINT ["python", "downloader.py"]
