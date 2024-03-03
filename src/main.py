@@ -69,7 +69,7 @@ async def predict(
 
 @app.post("/reload-model")
 async def reload_model(request: Request, reload_data: ReloadModelData) -> None:
-    # hot reload of the model
+    # hot reload of the model, but this will work only for the current worker
     request.app.model, request.app.model_version = load_model(reload_data.version)
 
 
