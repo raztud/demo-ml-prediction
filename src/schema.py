@@ -18,3 +18,7 @@ class FeedbackData(BaseModel):
     value: float
     label: int
     model_version: str
+
+
+class ReloadModelData(BaseModel):
+    version: str
