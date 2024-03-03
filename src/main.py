@@ -17,6 +17,9 @@ from src.schema import (
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# the base URL should come from a config file via an env variable
+BASE_URL = "https://s3.eu-central-1.amazonaws.com/dropbox.razvantudorica.net"
+
 
 def load_model(version: str = ""):
     if not version:
@@ -25,8 +28,7 @@ def load_model(version: str = ""):
     model_path = f"{os.getcwd()}/model/model-{version}.pkl"
     if not os.path.isfile(model_path):
         logger.info("Download model...")
-        # the base URL should come from a config file
-        url = f"https://s3.eu-central-1.amazonaws.com/dropbox.razvantudorica.net/model-{version}.pkl"
+        url = f"{BASE_URL}/model-{version}.pkl"
         with httpx.Client() as client:
             response = client.get(url)
             response.raise_for_status()
