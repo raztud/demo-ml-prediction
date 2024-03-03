@@ -32,3 +32,4 @@ And also you can make a request to the API using Swagger UI.
 - `model/train_model.py`: It is a very simple model training script which will generate the .pkl file used as model. 
   - This model should be uploaded to S3, and the path should be provided in the `src/main.py` file. For convenience, I used a public link for the model. 
   - In the real world, the model can be downloaded from the private S3 bucket using boto3 library.
+- `images/training-architecture.png`: This is the image of the architecture of the Argo Workflows pipeline.
