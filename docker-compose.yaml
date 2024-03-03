@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  demo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - PORT=8000
+      - MODEL_VERSION=0.0.1
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "${PORT:-8000}:8000"
+    entrypoint: [ "uvicorn" ]
+    command: [ "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload" ]
+
