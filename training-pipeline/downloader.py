@@ -18,7 +18,7 @@ def save_csv(url, s3_key):
         else:
             print(f"Failed to download CSV file: {url}")
     except Exception as e:
-        print(f"Error downloading CSV file {url} - {str(e)}")
+        print(f"Error downloading CSV file: {url} - {str(e)}")
 
 
 def main():
