@@ -30,7 +30,7 @@ def main():
     input_file_path = sys.argv[1]
 
     if not os.path.exists(input_file_path):
-        print(f"Error: Input file '{input_file_path}' not found.")
+        print(f"Error: Input file '{input_file_path}' not found")
         sys.exit(1)
 
     try:
