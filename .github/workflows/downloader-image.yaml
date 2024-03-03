@@ -8,10 +8,23 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build --file training-pipeline/Dockerfile training-pipeline --tag downloader:$(date +%s)
+      run: |
+        IMAGE_ID=downloader
+        IMAGE_TAG=$(date +%s)
+        docker build --file training-pipeline/Dockerfile training-pipeline --tag $IMAGE_ID:$IMAGE_TAG
+    - name: Login to Amazon ECR
+      run: "echo 'Logged in to Amazon ECR'"
+#      id: login-ecr
+#      uses: aws-actions/amazon-ecr-login@v1
+    - name: Push to Amazon ECR
+      run: |
+        IMAGE_ID=downloader
+        IMAGE_TAG=$(date +%s)
+        echo "Pushing the Docker image to Amazon ECR: ${IMAGE_ID}:${IMAGE_TAG}"
+#        docker tag $IMAGE_ID:$IMAGE_TAG ${{ steps.login-ecr.outputs.registry }}/$IMAGE_ID:$IMAGE_TAG
+#        docker push ${{ steps.login-ecr.outputs.registry }}/$IMAGE_ID:$IMAGE_TAG
