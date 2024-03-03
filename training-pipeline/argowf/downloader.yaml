@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: downloader-
+spec:
+  entrypoint: downloader.py
+  templates:
+    - name: downloader
+      container:
+        image: downloader:1.0  # HERE IT SHOULD BE THE ECR PATH TO THE image
+        command: ["python", "downloader.py"]
+        volumeMounts:
+          - name: data-volume
+            mountPath: /data
+      volumes:
+        - name: data-volume
+          emptyDir: {}
+      outputs:
+        artifacts:
+          - name: downloaded-csv
+            path: /data

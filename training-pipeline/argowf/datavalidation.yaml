@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: data-validator-
+spec:
+  entrypoint: datavalidator
+  templates:
+    - name: data-validator
+      container:
+        image: downloader:v1.0  # HERE IT SHOULD BE THE ECR PATH TO THE image
+        command: ["python", "validator.py"]  # the validator.py will use different datascience techniques to validate the data
+        args: ["/downloaded-csv"]
+        # mont the previously downloaded files in a Kubertenes volume
+        volumeMounts:
+          - name: data-volume
+            mountPath: /downloaded-csv
+      inputs:
+        artifacts:
+          - name: downloaded-csv
+            path: /downloaded-csv
+      volumes:
+        - name: data-volume
+          emptyDir: {}
